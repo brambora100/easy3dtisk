@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reklamace a vrácení | Easy3Dtisk</title>
+    
+    <link rel="icon" type="image/png" href="https://i.imgur.com/qnp7Nqk.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&family=Plus+Jakarta+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --accent: #ff6600; 
+            --dark: #1a1a1a;
+            --border: #f0f0f0;
+            --text: #1d1d1f;
+            --gray-bg: #fdfdfd;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #ffffff; color: var(--text); -webkit-font-smoothing: antialiased; }
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 30px; }
+
+        /* NAVBAR */
+        nav {
+            padding: 25px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0; z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 900; color: var(--dark); text-decoration: none; }
+        .logo span { color: var(--accent); }
+        .nav-links { display: flex; gap: 40px; }
+        .nav-links a { text-decoration: none; color: var(--text); font-weight: 700; font-size: 0.85rem; transition: 0.3s; text-transform: uppercase; letter-spacing: 1.5px; }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* CONTENT */
+        .legal-content {
+            max-width: 850px;
+            margin: 80px auto 120px;
+            line-height: 1.8;
+        }
+        h1 { font-family: 'Outfit', sans-serif; font-size: 3.5rem; letter-spacing: -2px; margin-bottom: 40px; text-align: center; }
+        h1 span { color: var(--accent); }
+        
+        h2 { font-family: 'Outfit', sans-serif; font-size: 1.6rem; margin: 45px 0 20px; color: var(--dark); border-left: 4px solid var(--accent); padding-left: 20px; }
+        p, li { margin-bottom: 15px; color: #444; }
+        ul { margin-bottom: 20px; margin-left: 20px; }
+
+        .highlight-box {
+            background: #fff8f4;
+            padding: 30px;
+            border-radius: 25px;
+            border: 1px solid #ffe0cc;
+            margin-bottom: 40px;
+        }
+
+        /* FOOTER */
+        footer { padding: 80px 0 40px; background: #ffffff; border-top: 1px solid var(--border); }
+        .footer-grid { display: grid; grid-template-columns: 1.2fr 0.8fr 1fr 1fr; gap: 30px; }
+        .footer-brand .footer-logo { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 900; color: var(--dark); margin-bottom: 15px; display: inline-block; text-decoration: none; }
+        .footer-brand .footer-logo span { color: var(--accent); }
+        .footer-col h4 { font-size: 0.8rem; text-transform: uppercase; color: #999; letter-spacing: 2px; margin-bottom: 25px; font-weight: 700; }
+        .footer-col p, .footer-col a { color: var(--text); text-decoration: none; display: block; margin-bottom: 12px; font-size: 1rem; }
+        .footer-col a:hover { color: var(--accent); }
+        
+        .social-icons { display: flex; gap: 12px; margin-top: 25px; }
+        .social-icons a { font-size: 1.2rem; color: var(--dark); display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: #f5f5f7; border-radius: 50%; transition: 0.4s; }
+        .social-icons a:hover { background: var(--accent); color: white; transform: translateY(-5px); }
+
+        .footer-bottom { border-top: 1px solid #f2f2f2; margin-top: 60px; padding-top: 30px; text-align: center; font-size: 0.85rem; color: #b0b0b5; }
+
+        @media (max-width: 800px) { 
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <nav>
+        <a href="/easy3dtisk/" class="logo">Easy<span>3D</span>tisk</a>
+        <div class="nav-links">
+            <a href="/easy3dtisk/portfolio">Portfolio</a>
+            <a href="/easy3dtisk/kontakt">Kontakt</a>
+            <a href="/easy3dtisk/poptavka">Poptávka</a>
+        </div>
+    </nav>
+
+    <main class="legal-content">
+        <h1>Reklamace <span>a vrácení.</span></h1>
+
+        <div class="highlight-box">
+            <strong>Důležité upozornění:</strong><br>
+            U zakázkového 3D tisku se jedná o dodávku zboží, které bylo upraveno podle přání spotřebitele nebo pro jeho osobu. Z tohoto důvodu <strong>není možné odstoupit od smlouvy do 14 dnů bez udání důvodu</strong> tak, jako u běžných nákupů na e-shopu (§ 1837 občanského zákoníku).
+        </div>
+
+        <h2>1. Kdy máte nárok na reklamaci?</h2>
+        <p>I když se jedná o zakázkovou výrobu, stojíme si za kvalitou naší práce. Reklamaci můžete uplatnit v případě, že:</p>
+        <ul>
+            <li>Doručený tisk neodpovídá schválenému 3D modelu nebo technické specifikaci.</li>
+            <li>Výrobek vykazuje vady materiálu (např. vnitřní delaminace).</li>
+            <li>Zboží bylo doručeno poškozené v důsledku nevhodné přepravy.</li>
+        </ul>
+
+        <h2>2. Co nelze reklamovat?</h2>
+        <p>3D tisk technologií FDM/SLA má své specifické vlastnosti, které nejsou považovány za vadu:</p>
+        <ul>
+            <li><strong>Vrstvy:</strong> Viditelná struktura vrstev na povrchu modelu (v závislosti na zvolené výšce vrstvy).</li>
+            <li><strong>Podpory:</strong> Stopy v místech, kde byly odstraněny nezbytné podpory modelu.</li>
+            <li><strong>Vlastní design:</strong> Vady způsobené chybami v 3D modelu, který nám zaslal sám zákazník (např. příliš tenké stěny, které se při tisku zbortí).</li>
+        </ul>
+
+        <h2>3. Postup při reklamaci</h2>
+        <p>Pokud s výsledkem nejste spokojeni, postupujte následovně:</p>
+        <ol style="margin-left: 20px; margin-bottom: 20px;">
+            <li>Napište nám e-mail na <a href="mailto:tochtech.world@gmail.com" style="color:var(--accent);">tochtech.world@gmail.com</a>.</li>
+            <li>Přiložte fotografie vady a číslo vaší objednávky/poptávky.</li>
+            <li>Váš požadavek posoudíme do 3 pracovních dnů.</li>
+        </ol>
+
+        <h2>4. Způsob řešení</h2>
+        <p>U oprávněné reklamace nabízíme:</p>
+        <ul>
+            <li>Bezplatný dotisk opraveného kusu.</li>
+            <li>Slevu z kupní ceny, pokud je vada pouze estetická a nebrání funkci.</li>
+            <li>Vrácení peněz v případě, že nejsme schopni daný model vytisknout v požadované kvalitě.</li>
+        </ul>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="/easy3dtisk/" class="footer-logo">Easy<span>3D</span>tisk</a>
+                <p>Oživujeme vaše sny skrze technologii 3D tisku. Každý detail je pro nás důležitý.</p>
+                <div class="social-icons">
+                    <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://instagram.com/easy3dtisk" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/@Easy3Dtisk1" target="_blank"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>SÍDLO FIRMY</h4>
+                <p>Na Špičníku 410</p>
+                <p>257 26 Divišov</p>
+            </div>
+            <div class="footer-col">
+                <h4>INFORMACE</h4>
+                <a href="/easy3dtisk/obchodni-podminky">Obchodní podmínky</a>
+                <a href="/easy3dtisk/ochrana-soukromi">Ochrana soukromí</a>
+                <a href="/easy3dtisk/reklamace">Reklamace a vrácení</a>
+            </div>
+            <div class="footer-col">
+                <h4>KONTAKT</h4>
+                <a href="mailto:tochtech.world@gmail.com">tochtech.world@gmail.com</a>
+                <a href="/easy3dtisk/poptavka">Odeslat poptávku</a>
+            </div>
+        </div>
+        <div class="footer-bottom">© 2026 Easy3Dtisk. Všechna práva vyhrazena.</div>
+    </footer>
+</div>
+
+</body>
+</html>
