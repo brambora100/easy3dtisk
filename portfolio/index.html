@@ -6,107 +6,147 @@
     <title>Portfolio | Easy3Dtisk</title>
     
     <link rel="icon" type="image/png" href="https://i.imgur.com/qnp7Nqk.png">
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&family=Plus+Jakarta+Sans:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --accent: #ff6600; 
             --dark: #1a1a1a;
+            --gray-bg: #f9f9fb;
             --border: #f0f0f0;
             --text: #1d1d1f;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: #ffffff; color: var(--text); -webkit-font-smoothing: antialiased; }
-        .container { max-width: 1300px; margin: 0 auto; padding: 0 30px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 25px; }
 
+        /* --- NAVIGATION (Sjednocená s indexem) --- */
         nav {
-            padding: 25px 0;
+            padding: 20px 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(15px);
             position: sticky;
-            top: 0; z-index: 1000;
+            top: 0; z-index: 2000;
             border-bottom: 1px solid var(--border);
         }
-        .logo { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 900; color: var(--dark); text-decoration: none; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.7rem; font-weight: 900; color: var(--dark); text-decoration: none; z-index: 2001; }
         .logo span { color: var(--accent); }
-        .nav-links { display: flex; gap: 40px; }
-        .nav-links a { text-decoration: none; color: var(--text); font-weight: 700; font-size: 0.85rem; transition: 0.3s; text-transform: uppercase; letter-spacing: 1.5px; }
-        .nav-links a:hover { color: var(--accent); }
+        
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links a { 
+            text-decoration: none; color: var(--dark); font-weight: 700; font-size: 0.8rem; 
+            transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; padding: 10px 15px; border-radius: 10px;
+        }
+        .nav-links a:hover:not(.poptavka-btn) { background: #f5f5f7; color: var(--accent); }
 
+        .nav-links a.poptavka-btn { 
+            background: var(--accent); color: #fff; padding: 12px 25px; border-radius: 100px; transition: 0.4s;
+        }
+        .nav-links a.poptavka-btn:hover { background: var(--dark); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255,102,0,0.2); }
+
+        .menu-toggle { display: none; font-size: 1.4rem; cursor: pointer; z-index: 2001; }
+
+        /* --- PORTFOLIO HEADER --- */
         .portfolio-header { padding: 80px 0 40px; text-align: center; }
-        .portfolio-header h1 { font-family: 'Outfit', sans-serif; font-size: 3rem; letter-spacing: -2px; }
+        .portfolio-header h1 { font-family: 'Outfit', sans-serif; font-size: clamp(2.5rem, 7vw, 4rem); letter-spacing: -2px; font-weight: 900; }
+        .portfolio-header h1 span { color: var(--accent); }
 
-        /* MŘÍŽKA 3x3 */
+        /* --- PORTFOLIO GRID --- */
         .portfolio-grid { 
             display: grid; 
             grid-template-columns: repeat(3, 1fr); 
-            gap: 20px; 
+            gap: 25px; 
             margin-bottom: 100px; 
         }
 
         .portfolio-item {
             cursor: pointer;
-            transition: 0.3s;
+            transition: 0.3s ease;
+            text-align: center;
         }
 
         .item-img { 
             width: 100%; 
             aspect-ratio: 1/1; 
-            border-radius: 20px; 
+            border-radius: 30px; 
             overflow: hidden; 
             background: #f5f5f7; 
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border);
         }
 
         .item-img img { 
             width: 100%; 
             height: 100%; 
             object-fit: cover; 
-            transition: 0.5s; 
+            transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
         }
 
-        .portfolio-item:hover img { transform: scale(1.05); }
-        .portfolio-item h3 { font-family: 'Outfit', sans-serif; font-size: 1.1rem; text-align: center; color: var(--dark); }
+        .portfolio-item:hover img { transform: scale(1.08); }
+        .portfolio-item h3 { font-family: 'Outfit', sans-serif; font-size: 1.1rem; color: var(--dark); font-weight: 700; }
 
-        /* LIGHTBOX */
+        /* --- LIGHTBOX --- */
         #lightbox-ui {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.95);
             z-index: 9999;
             justify-content: center;
             align-items: center;
+            backdrop-filter: blur(10px);
         }
-        #lightbox-img { max-width: 90%; max-height: 80vh; border-radius: 10px; }
-        .close-btn { position: absolute; top: 30px; right: 40px; color: white; font-size: 3rem; cursor: pointer; }
+        #lightbox-img { max-width: 90%; max-height: 85vh; border-radius: 15px; box-shadow: 0 0 40px rgba(0,0,0,0.5); }
+        .close-btn { position: absolute; top: 30px; right: 40px; color: white; font-size: 3rem; cursor: pointer; transition: 0.3s; }
+        .close-btn:hover { color: var(--accent); transform: rotate(90deg); }
 
-        footer { padding: 80px 0 40px; background: #ffffff; border-top: 1px solid var(--border); }
-        .footer-grid { display: grid; grid-template-columns: 1.2fr 0.8fr 1fr 1fr; gap: 30px; }
-        .footer-brand .footer-logo { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 900; color: var(--dark); margin-bottom: 15px; display: inline-block; text-decoration: none; }
+        /* --- FOOTER (Sjednocený s indexem) --- */
+        footer { padding: 80px 0 40px; background: #fff; border-top: 1px solid var(--border); }
+        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 50px; }
+        
+        .footer-brand .footer-logo { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 900; color: var(--dark); text-decoration: none; display: block; margin-bottom: 20px; }
         .footer-brand .footer-logo span { color: var(--accent); }
-        .footer-brand p { font-size: 1rem; color: #6e6e73; line-height: 1.6; max-width: 250px; }
-        .footer-col h4 { font-size: 0.8rem; text-transform: uppercase; color: #999; letter-spacing: 2px; margin-bottom: 25px; font-weight: 700; }
-        .footer-col p, .footer-col a { color: var(--text); text-decoration: none; display: block; margin-bottom: 12px; font-size: 1rem; transition: 0.3s; }
-        .footer-col a:hover { color: var(--accent); transform: translateX(5px); }
-        .social-icons { display: flex; gap: 12px; margin-top: 25px; }
-        .social-icons a { font-size: 1.2rem; color: var(--dark); display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: #f5f5f7; border-radius: 50%; transition: all 0.4s ease; }
+        .footer-brand p { color: #86868b; line-height: 1.6; font-size: 0.95rem; }
+
+        .footer-col h4 { font-size: 0.8rem; text-transform: uppercase; color: #b0b0b5; letter-spacing: 2px; margin-bottom: 25px; font-weight: 800; }
+        .footer-col a, .footer-col p { color: var(--text); text-decoration: none; display: block; margin-bottom: 15px; font-size: 0.95rem; transition: 0.2s; }
+        .footer-col a:hover { color: var(--accent); padding-left: 5px; }
+
+        .social-icons { display: flex; gap: 15px; margin-top: 25px; }
+        .social-icons a { 
+            width: 45px; height: 45px; background: #f5f5f7; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; color: var(--dark); transition: 0.4s;
+        }
         .social-icons a:hover { background: var(--accent); color: white; transform: translateY(-5px); }
-        .footer-bottom { border-top: 1px solid #f2f2f2; margin-top: 60px; padding-top: 30px; text-align: center; }
+
+        .footer-bottom { border-top: 1px solid #f2f2f2; margin-top: 60px; padding-top: 30px; display: flex; justify-content: space-between; align-items: center; }
         .copyright { font-size: 0.85rem; color: #b0b0b5; }
 
-        @media (max-width: 900px) { 
+        /* --- MOBILE RESPONSIVE --- */
+        @media (max-width: 992px) {
             .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
             .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
         }
-        @media (max-width: 600px) { 
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .nav-links {
+                position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
+                background: white; flex-direction: column; justify-content: center;
+                transition: 0.5s cubic-bezier(0.77,0.2,0.05,1.0); z-index: 2000; gap: 30px;
+            }
+            .nav-links.active { right: 0; }
+            .nav-links a { font-size: 1.2rem; }
+            
             .portfolio-grid { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; text-align: center; }
+            .social-icons { justify-content: center; }
+            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
         }
     </style>
 </head>
@@ -115,10 +155,13 @@
 <div class="container">
     <nav>
         <a href="/easy3dtisk/" class="logo">Easy<span>3D</span>tisk</a>
-        <div class="nav-links">
-            <a href="/easy3dtisk/portfolio">Portfolio</a>
-            <a href="/easy3dtisk/kontakt">Kontakt</a>
-            <a href="/easy3dtisk/poptavka">Poptávka</a>
+        <div class="menu-toggle" id="mobile-menu-icon" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="/easy3dtisk/portfolio" onclick="toggleMenu()">Portfolio</a>
+            <a href="/easy3dtisk/kontakt" onclick="toggleMenu()">Kontakt</a>
+            <a href="/easy3dtisk/poptavka" class="poptavka-btn" onclick="toggleMenu()">Poptávka</a>
         </div>
     </nav>
 
@@ -137,19 +180,19 @@
         </div>
         <div class="portfolio-item" onclick="openLightbox('img3')">
             <div class="item-img"><img src="https://rpishop.cz/wp-content/uploads/2023/05/28984-Sada-tistenych-dilu-pro-3D-tiskarnu-Voron-2.4-R2-zakladni.jpg" id="img3"></div>
-            <h3>Technické díly</h3>
+            <h3>Technické sestavy</h3>
         </div>
         <div class="portfolio-item" onclick="openLightbox('img4')">
             <div class="item-img"><img src="https://be3dacademy.ysoft.com/Be3D/media/static-files/ee16f0d2-9e78-41c5-a3d2-072bb16981b2@w1920.jpg" id="img4"></div>
-            <h3>Stojánek na telefon</h3>
+            <h3>Užitné doplňky</h3>
         </div>
         <div class="portfolio-item" onclick="openLightbox('img5')">
-            <div class="item-img"><img src="https://cz.china-3dprinting.com/uploads/202235431/3d-printed-resin-jewelry41255005255.jpg" id="img5"></div>
-            <h3>Šperky z resinu</h3>
+            <div class="item-img"><img src="https://www.inovatiq.cz/pcs/pcs_galerie/pcs_1-1-navrh-strojnich-soucasti-unasec-3d-tisk-jpg.jpg" id="img5"></div>
+            <h3>Strojní součásti</h3>
         </div>
         <div class="portfolio-item" onclick="openLightbox('img6')">
             <div class="item-img"><img src="https://sharplayers.cz/wp-content/uploads/2019/11/DSC0260-768x514-1.jpg" id="img6"></div>
-            <h3>Dekorace</h3>
+            <h3>Bytové dekorace</h3>
         </div>
         <div class="portfolio-item" onclick="openLightbox('img7')">
             <div class="item-img"><img src="https://admasys.cz/wp-content/uploads/2021/10/formlabs-fuse-1-vrtacka-dsc02320-768x576.jpg" id="img7"></div>
@@ -161,55 +204,79 @@
         </div>
         <div class="portfolio-item" onclick="openLightbox('img9')">
             <div class="item-img"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQurEbKjoCVGYOhCz58nEvLoqkRDn6CZwV-OQ&s" id="img9"></div>
-            <h3>Speciální tisk</h3>
+            <h3>Speciální materiály</h3>
         </div>
     </div>
 
-    <div id="lightbox-ui" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; justify-content:center; align-items:center;">
-        <span onclick="closeLightbox()" class="close-btn">&times;</span>
-        <img id="lightbox-img" src="">
+    <div id="lightbox-ui" onclick="closeLightbox()">
+        <span class="close-btn">&times;</span>
+        <img id="lightbox-img" src="" onclick="event.stopPropagation()">
     </div>
 
     <footer>
         <div class="footer-grid">
             <div class="footer-brand">
                 <a href="/easy3dtisk/" class="footer-logo">Easy<span>3D</span>tisk</a>
-                <p>Oživujeme vaše sny skrze technologii 3D tisku. Každý detail je pro nás důležitý.</p>
+                <p>Precizní 3D tisk a zakázková výroba. Oživujeme vaše nápady s důrazem na detail a kvalitu materiálu.</p>
                 <div class="social-icons">
                     <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://instagram.com/easy3dtisk" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.youtube.com/@Easy3Dtisk1" target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
+
             <div class="footer-col">
                 <h4>SÍDLO FIRMY</h4>
-                <p> </p>
-                <p> </p>
+                <p>Divišov</p>
+                <p>257 26</p>
+                <p>Česká republika</p>
             </div>
+
             <div class="footer-col">
                 <h4>INFORMACE</h4>
                 <a href="/easy3dtisk/obchodni-podminky">Obchodní podmínky</a>
                 <a href="/easy3dtisk/ochrana-soukromi">Ochrana soukromí</a>
                 <a href="/easy3dtisk/reklamace">Reklamace a vrácení</a>
             </div>
+
             <div class="footer-col">
                 <h4>KONTAKT</h4>
                 <a href="mailto:tochtech.world@gmail.com">tochtech.world@gmail.com</a>
-                <a href="/easy3dtisk/poptavka">Odeslat poptávku</a>
+                <a href="/easy3dtisk/poptavka" style="font-weight: 700; color: var(--accent);">Odeslat poptávku</a>
             </div>
         </div>
-        <div class="footer-bottom"><p class="copyright">© 2026 Easy3Dtisk. Všechna práva vyhrazena.</p></div>
+
+        <div class="footer-bottom">
+            <p class="copyright">© 2026 Easy3Dtisk. Všechna práva vyhrazena.</p>
+            <p style="font-size: 0.8rem; color: #d1d1d6;">Made with passion for 3D Printing</p>
+        </div>
     </footer>
 </div>
 
 <script>
+    function toggleMenu() {
+        const navLinks = document.getElementById('navLinks');
+        const icon = document.querySelector('#mobile-menu-icon i');
+        navLinks.classList.toggle('active');
+        if (navLinks.classList.contains('active')) {
+            icon.classList.replace('fa-bars', 'fa-times');
+            document.body.style.overflow = 'hidden';
+        } else {
+            icon.classList.replace('fa-times', 'fa-bars');
+            document.body.style.overflow = 'auto';
+        }
+    }
+
     function openLightbox(imgId) {
         var imgSrc = document.getElementById(imgId).src;
         document.getElementById('lightbox-img').src = imgSrc;
         document.getElementById('lightbox-ui').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
     }
+
     function closeLightbox() {
         document.getElementById('lightbox-ui').style.display = 'none';
+        document.body.style.overflow = 'auto';
     }
 </script>
 
