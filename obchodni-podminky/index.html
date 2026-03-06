@@ -6,79 +6,79 @@
     <title>Obchodní podmínky | Easy3Dtisk</title>
     
     <link rel="icon" type="image/png" href="https://i.imgur.com/qnp7Nqk.png">
-    
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&family=Plus+Jakarta+Sans:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
             --accent: #ff6600; 
             --dark: #1a1a1a;
+            --gray-bg: #f9f9fb;
             --border: #f0f0f0;
             --text: #1d1d1f;
-            --gray-bg: #fdfdfd;
+            --soft-bg: #f5f5f7;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #ffffff; color: var(--text); -webkit-font-smoothing: antialiased; }
-        .container { max-width: 1300px; margin: 0 auto; padding: 0 30px; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #ffffff; color: var(--text); -webkit-font-smoothing: antialiased; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 25px; }
 
-        /* NAVBAR */
+        /* --- NAVIGATION --- */
         nav {
-            padding: 25px 0;
+            padding: 20px 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(15px);
             position: sticky;
-            top: 0; z-index: 1000;
+            top: 0; z-index: 2000;
             border-bottom: 1px solid var(--border);
         }
-        .logo { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 900; color: var(--dark); text-decoration: none; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.7rem; font-weight: 900; color: var(--dark); text-decoration: none; z-index: 2001; }
         .logo span { color: var(--accent); }
-        .nav-links { display: flex; gap: 40px; }
-        .nav-links a { text-decoration: none; color: var(--text); font-weight: 700; font-size: 0.85rem; transition: 0.3s; text-transform: uppercase; letter-spacing: 1.5px; }
-        .nav-links a:hover { color: var(--accent); }
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--dark); font-weight: 700; font-size: 0.8rem; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; padding: 10px 15px; border-radius: 10px; }
+        .nav-links a:hover:not(.poptavka-btn) { background: #f5f5f7; color: var(--accent); }
+        .nav-links a.poptavka-btn { background: var(--accent); color: #fff; padding: 12px 25px; border-radius: 100px; transition: 0.4s; }
+        .nav-links a.poptavka-btn:hover { background: var(--dark); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255,102,0,0.2); }
+        .menu-toggle { display: none; font-size: 1.4rem; cursor: pointer; z-index: 2001; }
 
-        /* CONTENT */
-        .legal-content {
-            max-width: 850px;
-            margin: 80px auto 120px;
-            line-height: 1.8;
-        }
-        h1 { font-family: 'Outfit', sans-serif; font-size: 3.5rem; letter-spacing: -2px; margin-bottom: 40px; text-align: center; }
-        h1 span { color: var(--accent); }
-        
-        h2 { font-family: 'Outfit', sans-serif; font-size: 1.6rem; margin: 45px 0 20px; color: var(--dark); border-left: 4px solid var(--accent); padding-left: 20px; }
-        p { margin-bottom: 20px; color: #444; }
-        
-        .operator-box {
-            background: var(--gray-bg);
-            padding: 30px;
-            border-radius: 25px;
-            border: 1px solid var(--border);
-            margin-bottom: 40px;
-        }
-        .operator-box strong { color: var(--dark); font-size: 1.1rem; }
+        /* --- LEGAL CONTENT --- */
+        .legal-header { padding: 80px 0 40px; text-align: center; }
+        .legal-header h1 { font-family: 'Outfit', sans-serif; font-size: clamp(2.5rem, 7vw, 4rem); letter-spacing: -2px; font-weight: 900; }
+        .legal-header h1 span { color: var(--accent); }
 
-        /* FOOTER */
-        footer { padding: 80px 0 40px; background: #ffffff; border-top: 1px solid var(--border); }
-        .footer-grid { display: grid; grid-template-columns: 1.2fr 0.8fr 1fr 1fr; gap: 30px; }
-        .footer-brand .footer-logo { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 900; color: var(--dark); margin-bottom: 15px; display: inline-block; text-decoration: none; }
+        .legal-content { max-width: 800px; margin: 0 auto 100px; padding: 0 20px; }
+        .legal-content h2 { font-family: 'Outfit', sans-serif; font-size: 1.5rem; margin: 40px 0 20px; color: var(--dark); font-weight: 700; }
+        .legal-content p { margin-bottom: 20px; color: #424245; font-size: 1.05rem; }
+        .legal-content ul { margin-bottom: 25px; padding-left: 20px; }
+        .legal-content li { margin-bottom: 12px; color: #424245; }
+        .legal-content strong { color: var(--dark); }
+
+        /* --- FOOTER --- */
+        footer { padding: 80px 0 40px; background: #fff; border-top: 1px solid var(--border); }
+        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 50px; }
+        .footer-brand .footer-logo { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 900; color: var(--dark); text-decoration: none; display: block; margin-bottom: 20px; }
         .footer-brand .footer-logo span { color: var(--accent); }
-        .footer-col h4 { font-size: 0.8rem; text-transform: uppercase; color: #999; letter-spacing: 2px; margin-bottom: 25px; font-weight: 700; }
-        .footer-col p, .footer-col a { color: var(--text); text-decoration: none; display: block; margin-bottom: 12px; font-size: 1rem; }
-        .footer-col a:hover { color: var(--accent); }
-        
-        .social-icons { display: flex; gap: 12px; margin-top: 25px; }
-        .social-icons a { font-size: 1.2rem; color: var(--dark); display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: #f5f5f7; border-radius: 50%; transition: 0.4s; }
+        .footer-brand p { color: #86868b; line-height: 1.6; font-size: 0.95rem; }
+        .footer-col h4 { font-size: 0.8rem; text-transform: uppercase; color: #b0b0b5; letter-spacing: 2px; margin-bottom: 25px; font-weight: 800; }
+        .footer-col a, .footer-col p { color: var(--text); text-decoration: none; display: block; margin-bottom: 15px; font-size: 0.95rem; transition: 0.2s; }
+        .footer-col a:hover { color: var(--accent); padding-left: 5px; }
+        .social-icons { display: flex; gap: 15px; margin-top: 25px; }
+        .social-icons a { width: 45px; height: 45px; background: #f5f5f7; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--dark); transition: 0.4s; }
         .social-icons a:hover { background: var(--accent); color: white; transform: translateY(-5px); }
+        .footer-bottom { border-top: 1px solid #f2f2f2; margin-top: 60px; padding-top: 30px; display: flex; justify-content: space-between; align-items: center; }
+        .copyright { font-size: 0.85rem; color: #b0b0b5; }
 
-        .footer-bottom { border-top: 1px solid #f2f2f2; margin-top: 60px; padding-top: 30px; text-align: center; font-size: 0.85rem; color: #b0b0b5; }
-
-        @media (max-width: 800px) { 
-            .footer-grid { grid-template-columns: 1fr 1fr; }
-            h1 { font-size: 2.5rem; }
+        /* --- MOBILE --- */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            .nav-links { position: fixed; top: 0; right: -100%; width: 100%; height: 100vh; background: white; flex-direction: column; justify-content: center; transition: 0.5s cubic-bezier(0.77,0.2,0.05,1.0); z-index: 2000; gap: 30px; }
+            .nav-links.active { right: 0; }
+            .footer-grid { grid-template-columns: 1fr; text-align: center; }
+            .social-icons { justify-content: center; }
+            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
         }
     </style>
 </head>
@@ -87,74 +87,97 @@
 <div class="container">
     <nav>
         <a href="/easy3dtisk/" class="logo">Easy<span>3D</span>tisk</a>
-        <div class="nav-links">
-            <a href="/easy3dtisk/portfolio">Portfolio</a>
-            <a href="/easy3dtisk/kontakt">Kontakt</a>
-            <a href="/easy3dtisk/poptavka">Poptávka</a>
+        <div class="menu-toggle" id="mobile-menu-icon" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="/easy3dtisk/portfolio" onclick="toggleMenu()">Portfolio</a>
+            <a href="/easy3dtisk/kontakt" onclick="toggleMenu()">Kontakt</a>
+            <a href="/easy3dtisk/poptavka" class="poptavka-btn" onclick="toggleMenu()">Poptávka</a>
         </div>
     </nav>
 
-    <main class="legal-content">
-        <h1>Obchodní <span>podmínky.</span></h1>
+    <header class="legal-header">
+        <h1>Obchodní <span>Podmínky.</span></h1>
+    </header>
 
-        <div class="operator-box">
-            <strong>Provozovatel projektu Easy3Dtisk:</strong><br><br>
-            Jméno: <strong> </strong><br>
-            Sídlo:  <br>
-            IČO: [DOPLNIT IČO]<br>
-            E-mail: <a href="mailto:tochtech.world@gmail.com" style="color: var(--accent); text-decoration: none;">tochtech.world@gmail.com</a>
-        </div>
+    <main class="legal-content">
+        <p>Tyto obchodní podmínky upravují vztah mezi provozovatelem služby <strong>Easy3Dtisk</strong> a zákazníkem při zakázkové výrobě 3D modelů.</p>
 
         <h2>1. Úvodní ustanovení</h2>
-        <p>Tyto obchodní podmínky upravují vztahy mezi provozovatelem (prodávajícím) a zákazníkem (kupujícím) v oblasti zakázkového 3D tisku a souvisejících služeb.</p>
+        <p>Provozovatel poskytuje služby zakázkového 3D tisku na základě digitálních předloh dodaných zákazníkem. Odesláním poptávky bere zákazník na vědomí, že se jedná o výrobu zboží na zakázku.</p>
 
         <h2>2. Objednávka a uzavření smlouvy</h2>
-        <p>Zaslání poptávkového formuláře je nezávazné. Smlouva je uzavřena v okamžiku, kdy zákazník písemně (e-mailem) potvrdí zaslanou cenovou nabídku a prodávající toto potvrzení akceptuje.</p>
+        <ul>
+            <li>Smlouva je uzavřena v momentě, kdy zákazník odsouhlasí finální cenovou nabídku zaslanou provozovatelem.</li>
+            <li>Zákazník potvrzuje, že má právo nakládat s dodanými 3D modely a že jejich tiskem neporušuje autorská práva.</li>
+            <li>Provozovatel si vyhrazuje právo odmítnout zakázku, která je technicky neproveditelná nebo v rozporu s etikou.</li>
+        </ul>
 
-        <h2>3. Platební podmínky</h2>
-        <p>Cena je stanovena individuálně. Platba probíhá bankovním převodem na základě vystavené faktury. U zakázek může být vyžadována záloha před zahájením tisku.</p>
+        <h2>3. Platební a dodací podmínky</h2>
+        <p>Cena je stanovena individuálně na základě objemu materiálu, času tisku a náročnosti post-processingu. U zakázek nad 1 000 Kč může být vyžadována záloha ve výši 50 %. Dodání probíhá osobně v Divišově nebo prostřednictvím zvoleného dopravce.</p>
 
-        <h2>4. Specifika 3D tisku a reklamace</h2>
-        <p>Zákazník bere na vědomí, že technologie 3D tisku má specifické vizuální vlastnosti (viditelné vrstvy), které nejsou považovány za vadu. Reklamace se nevztahuje na vady způsobené špatným návrhem modelu dodaného zákazníkem.</p>
+        <h2>4. Odstoupení od smlouvy</h2>
+        <p>Dle § 1837 písm. d) občanského zákoníku <strong>nelze odstoupit od smlouvy o dodávce zboží, které bylo upraveno podle přání spotřebitele</strong>. Vzhledem k tomu, že každý 3D tisk je unikátní výrobou na míru, není možné hotový výrobek vrátit bez udání důvodu.</p>
 
-        <h2>5. Odstoupení od smlouvy</h2>
-        <p>Dle § 1837 písm. d) občanského zákoníku <strong>nelze odstoupit od smlouvy o dodávce zboží, které bylo vyrobeno podle přání spotřebitele.</strong> 3D tisk je unikátní zakázkou, výrobek tedy není možné vrátit bez udání důvodu.</p>
-
-        <h2>6. Ochrana osobních údajů</h2>
-        <p>Osobní údaje jsou zpracovávány v souladu s GDPR pouze pro účely vyřízení objednávky.</p>
+        <h2>5. Reklamace a kvalita</h2>
+        <p>3D tisk technologií FDM má své charakteristické vlastnosti (např. viditelné vrstvy). Tyto vlastnosti nejsou považovány za vadu, pokud nesnižují deklarovanou funkci výrobku. Reklamace se vztahují na skryté vady materiálu nebo výrazné odchylky od schváleného zadání.</p>
     </main>
 
     <footer>
         <div class="footer-grid">
             <div class="footer-brand">
                 <a href="/easy3dtisk/" class="footer-logo">Easy<span>3D</span>tisk</a>
-                <p>Oživujeme vaše sny skrze technologii 3D tisku. Každý detail je pro nás důležitý.</p>
+                <p>Precizní 3D tisk a zakázková výroba. Oživujeme vaše nápady s důrazem na detail a kvalitu materiálu.</p>
                 <div class="social-icons">
                     <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://instagram.com/easy3dtisk" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.youtube.com/@Easy3Dtisk1" target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
+
             <div class="footer-col">
                 <h4>SÍDLO FIRMY</h4>
-                <p> </p>
-                <p> </p>
+                <p>Divišov</p>
+                <p>257 26</p>
+                <p>Česká republika</p>
             </div>
+
             <div class="footer-col">
                 <h4>INFORMACE</h4>
                 <a href="/easy3dtisk/obchodni-podminky">Obchodní podmínky</a>
                 <a href="/easy3dtisk/ochrana-soukromi">Ochrana soukromí</a>
                 <a href="/easy3dtisk/reklamace">Reklamace a vrácení</a>
             </div>
+
             <div class="footer-col">
                 <h4>KONTAKT</h4>
                 <a href="mailto:tochtech.world@gmail.com">tochtech.world@gmail.com</a>
-                <a href="/easy3dtisk/poptavka">Odeslat poptávku</a>
+                <a href="/easy3dtisk/poptavka" style="font-weight: 700; color: var(--accent);">Odeslat poptávku</a>
             </div>
         </div>
-        <div class="footer-bottom">© 2026 Easy3Dtisk. Všechna práva vyhrazena.</div>
+
+        <div class="footer-bottom">
+            <p class="copyright">© 2026 Easy3Dtisk. Všechna práva vyhrazena.</p>
+            <p style="font-size: 0.8rem; color: #d1d1d6;">Made with passion for 3D Printing</p>
+        </div>
     </footer>
 </div>
+
+<script>
+    function toggleMenu() {
+        const navLinks = document.getElementById('navLinks');
+        const icon = document.querySelector('#mobile-menu-icon i');
+        navLinks.classList.toggle('active');
+        if (navLinks.classList.contains('active')) {
+            icon.classList.replace('fa-bars', 'fa-times');
+            document.body.style.overflow = 'hidden';
+        } else {
+            icon.classList.replace('fa-times', 'fa-bars');
+            document.body.style.overflow = 'auto';
+        }
+    }
+</script>
 
 </body>
 </html>
