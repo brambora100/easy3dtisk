@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt | Easy3Dtisk</title>
+    
+    <link rel="icon" type="image/png" href="https://i.imgur.com/qnp7Nqk.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&family=Plus+Jakarta+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --accent: #ff6600; 
+            --dark: #1a1a1a;
+            --border: #f0f0f0;
+            --text: #1d1d1f;
+            --gray-bg: #fdfdfd;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #ffffff; color: var(--text); -webkit-font-smoothing: antialiased; }
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 30px; }
+
+        nav {
+            padding: 25px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0; z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 900; color: var(--dark); text-decoration: none; }
+        .logo span { color: var(--accent); }
+        .nav-links { display: flex; gap: 40px; }
+        .nav-links a { text-decoration: none; color: var(--text); font-weight: 700; font-size: 0.85rem; transition: 0.3s; text-transform: uppercase; letter-spacing: 1.5px; }
+        .nav-links a:hover { color: var(--accent); }
+
+        .contact-header { padding: 100px 0 60px; text-align: center; }
+        .contact-header h1 { font-family: 'Outfit', sans-serif; font-size: 3.5rem; letter-spacing: -2px; margin-bottom: 15px; }
+        .contact-header p { color: #6e6e73; font-size: 1.2rem; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+        .contact-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 30px; 
+            margin-bottom: 120px; 
+        }
+
+        .contact-card {
+            background: var(--gray-bg);
+            padding: 50px 30px;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .contact-card:hover { border-color: var(--accent); transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        .contact-card i { font-size: 2.5rem; color: var(--accent); margin-bottom: 25px; }
+        .contact-card h3 { font-family: 'Outfit', sans-serif; margin-bottom: 15px; font-size: 1.5rem; }
+        .contact-card p, .contact-card a { color: #444; text-decoration: none; font-size: 1.1rem; line-height: 1.6; font-weight: 500; }
+        .contact-card a:hover { color: var(--accent); }
+
+        .cta-bottom { 
+            background: var(--dark); 
+            color: white; 
+            padding: 80px 40px; 
+            border-radius: 40px; 
+            text-align: center; 
+            margin-bottom: 100px;
+        }
+        .cta-bottom h2 { font-family: 'Outfit', sans-serif; font-size: 2.5rem; margin-bottom: 20px; }
+        .btn-poptavka {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 18px 45px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 800;
+            margin-top: 30px;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+        .btn-poptavka:hover { transform: scale(1.05); }
+
+        footer { padding: 80px 0 40px; background: #ffffff; border-top: 1px solid var(--border); }
+        .footer-grid { display: grid; grid-template-columns: 1.2fr 0.8fr 1fr 1fr; gap: 30px; }
+        .footer-brand .footer-logo { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 900; color: var(--dark); margin-bottom: 15px; display: inline-block; text-decoration: none; }
+        .footer-brand .footer-logo span { color: var(--accent); }
+        .footer-brand p { font-size: 1rem; color: #6e6e73; line-height: 1.6; max-width: 250px; }
+        .footer-col h4 { font-size: 0.8rem; text-transform: uppercase; color: #999; letter-spacing: 2px; margin-bottom: 25px; font-weight: 700; }
+        .footer-col p, .footer-col a { color: var(--text); text-decoration: none; display: block; margin-bottom: 12px; font-size: 1rem; transition: 0.3s; }
+        .footer-col a:hover { color: var(--accent); transform: translateX(5px); }
+        
+        .social-icons { display: flex; gap: 12px; margin-top: 25px; }
+        .social-icons a { font-size: 1.2rem; color: var(--dark); display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: #f5f5f7; border-radius: 50%; transition: 0.4s; }
+        .social-icons a:hover { background: var(--accent); color: white; transform: translateY(-5px); }
+
+        .footer-bottom { border-top: 1px solid #f2f2f2; margin-top: 60px; padding-top: 30px; text-align: center; font-size: 0.85rem; color: #b0b0b5; }
+
+        @media (max-width: 900px) { 
+            .contact-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <nav>
+        <a href="/easy3dtisk/" class="logo">Easy<span>3D</span>tisk</a>
+        <div class="nav-links">
+            <a href="/easy3dtisk/portfolio">Portfolio</a>
+            <a href="/easy3dtisk/kontakt">Kontakt</a>
+            <a href="/easy3dtisk/poptavka">Poptávka</a>
+        </div>
+    </nav>
+
+    <header class="contact-header">
+        <h1>Pojďme se <span>spojit.</span></h1>
+        <p>Máte dotaz k technologii nebo chcete probrat svůj projekt? Jsme tu pro vás na telefonu i emailu.</p>
+    </header>
+
+    <div class="contact-grid">
+        <div class="contact-card">
+            <i class="fas fa-phone-alt"></i>
+            <h3>Telefon</h3>
+            <a href="tel:+420777123456">+420 777 123 456</a>
+            <p style="margin-top: 10px; font-size: 0.9rem; color: #999;">Po - Pá | 8:00 - 18:00</p>
+        </div>
+        <div class="contact-card">
+            <i class="fas fa-envelope"></i>
+            <h3>Email</h3>
+            <a href="mailto:tochtech.world@gmail.com">tochtech.world@gmail.com</a>
+            <p style="margin-top: 10px; font-size: 0.9rem; color: #999;">Odpovídáme do 24 hodin</p>
+        </div>
+        <div class="contact-card">
+            <i class="fas fa-clock"></i>
+            <h3>Pracovní hodiny</h3>
+            <p>Pondělí – Pátek</p>
+            <p>08:00 – 18:00</p>
+            <p style="font-size: 0.9rem; color: #999; font-weight: 400;">Víkendy dle dohody</p>
+        </div>
+    </div>
+
+    <section class="cta-bottom">
+        <h2>Chcete rovnou nacenit projekt?</h2>
+        <p>Nahrajte svůj model a my se vám ozveme s kalkulací.</p>
+        <a href="/easy3dtisk/poptavka" class="btn-poptavka">Odeslat poptávku</a>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="/easy3dtisk/" class="footer-logo">Easy<span>3D</span>tisk</a>
+                <p>Oživujeme vaše sny skrze technologii 3D tisku. Každý detail je pro nás důležitý.</p>
+                <div class="social-icons">
+                    <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://instagram.com/easy3dtisk" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/@Easy3Dtisk1" target="_blank"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>SÍDLO FIRMY</h4>
+                <p>Na Špičníku 410</p>
+                <p>257 26 Divišov</p>
+            </div>
+            <div class="footer-col">
+                <h4>INFORMACE</h4>
+                <a href="/easy3dtisk/obchodni-podminky">Obchodní podmínky</a>
+                <a href="/easy3dtisk/ochrana-soukromi">Ochrana soukromí</a>
+                <a href="/easy3dtisk/reklamace">Reklamace a vrácení</a>
+            </div>
+            <div class="footer-col">
+                <h4>KONTAKT</h4>
+                <a href="mailto:tochtech.world@gmail.com">tochtech.world@gmail.com</a>
+                <a href="/easy3dtisk/poptavka">Odeslat poptávku</a>
+            </div>
+        </div>
+        <div class="footer-bottom">© 2026 Easy3Dtisk. Všechna práva vyhrazena.</div>
+    </footer>
+</div>
+
+</body>
+</html>
