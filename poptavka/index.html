@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poptávka tisku | Easy3Dtisk</title>
+    <title>Kalkulačka 3D tisku | Easy3Dtisk</title>
     
     <link rel="icon" type="image/png" href="https://i.imgur.com/qnp7Nqk.png">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&family=Plus+Jakarta+Sans:wght@300;400;700&display=swap" rel="stylesheet">
@@ -37,14 +37,23 @@
         }
         .logo { font-family: 'Outfit', sans-serif; font-size: 1.7rem; font-weight: 900; color: var(--dark); text-decoration: none; z-index: 2001; }
         .logo span { color: var(--accent); }
-        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links { display: flex; gap: 10px; align-items: center; }
         .nav-links a { text-decoration: none; color: var(--dark); font-weight: 700; font-size: 0.8rem; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; padding: 10px 15px; border-radius: 10px; }
-        .nav-links a:hover:not(.poptavka-btn) { background: #f5f5f7; color: var(--accent); }
-        .nav-links a.poptavka-btn { background: var(--accent); color: #fff; padding: 12px 25px; border-radius: 100px; transition: 0.4s; }
-        .nav-links a.poptavka-btn:hover { background: var(--dark); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255,102,0,0.2); }
+        .nav-links a:not(.cta-btn):hover { background: #f5f5f7; color: var(--accent); }
+        
+        .cta-btn { 
+            background: var(--accent) !important; 
+            color: white !important; 
+            border-radius: 50px !important; 
+            padding: 10px 25px !important; 
+            box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3);
+            margin-left: 10px;
+        }
+        .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 102, 0, 0.4); }
+
         .menu-toggle { display: none; font-size: 1.4rem; cursor: pointer; z-index: 2001; }
 
-        /* --- FORM SECTION --- */
+        /* --- CALCULATION SECTION --- */
         .order-section { padding: 60px 0 100px; max-width: 900px; margin: 0 auto; }
         .order-header { text-align: center; margin-bottom: 50px; }
         .order-header h1 { font-family: 'Outfit', sans-serif; font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 15px; font-weight: 900; letter-spacing: -1px; }
@@ -59,65 +68,37 @@
         .full-width { grid-column: 1 / -1; }
 
         label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; color: var(--dark); }
-        input, select, textarea { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid var(--border); background: var(--soft-bg); font-family: inherit; font-size: 1rem; transition: 0.3s; }
-        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); background: #fff; }
+        input, select { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid var(--border); background: var(--soft-bg); font-family: inherit; font-size: 1rem; transition: 0.3s; }
+        input:focus, select:focus { outline: none; border-color: var(--accent); background: #fff; }
 
-        /* --- DRAG & DROP UPLOAD --- */
-        .file-upload-wrapper {
-            position: relative;
-            width: 100%;
-            min-height: 120px;
-            border: 2px dashed #d1d1d6;
-            border-radius: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: var(--soft-bg);
-            transition: 0.3s;
-            cursor: pointer;
-            padding: 20px;
+        /* --- PRICE DISPLAY --- */
+        .price-box {
+            background: var(--dark);
+            color: white;
+            padding: 40px;
+            border-radius: 30px;
+            margin-top: 30px;
+            display: none;
             text-align: center;
+            animation: fadeIn 0.5s ease;
+            border: 1px solid rgba(255,102,0,0.2);
         }
-        .file-upload-wrapper:hover, .file-upload-wrapper.dragover {
-            border-color: var(--accent);
-            background: #fff;
-        }
-        .file-upload-wrapper i {
-            font-size: 1.5rem;
-            color: var(--accent);
-            margin-bottom: 10px;
-        }
-        .file-upload-wrapper p {
-            font-size: 0.85rem;
-            color: #6e6e73;
-            font-weight: 500;
-        }
-        .file-upload-wrapper span {
-            font-size: 0.75rem;
-            color: #b0b0b5;
-            margin-top: 5px;
-        }
-        .file-upload-wrapper input[type="file"] {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            cursor: pointer;
-        }
-        #file-name-display {
-            margin-top: 8px;
-            font-weight: 700;
-            color: var(--dark);
-            font-size: 0.85rem;
-        }
-        
-        .submit-btn { width: 100%; background: var(--accent); color: #fff; padding: 20px; border: none; border-radius: 100px; font-weight: 800; text-transform: uppercase; cursor: pointer; transition: 0.4s; margin-top: 20px; font-size: 1rem; letter-spacing: 1px; }
-        .submit-btn:hover { background: var(--dark); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .price-box .label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-bottom: 10px; display: block; }
+        .price-box .amount { font-family: 'Outfit', sans-serif; font-size: 3.5rem; font-weight: 900; color: var(--accent); display: block; line-height: 1; }
+        .price-box .details { font-size: 0.9rem; color: #aaa; margin-top: 15px; display: block; }
 
-        #form-result { margin-top: 20px; text-align: center; font-weight: 700; padding: 15px; border-radius: 12px; display: none; }
+        /* --- FILE UPLOAD --- */
+        .file-upload-wrapper {
+            position: relative; width: 100%; min-height: 140px; border: 2px dashed #d1d1d6; border-radius: 20px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--soft-bg); transition: 0.3s; cursor: pointer; padding: 20px; text-align: center;
+        }
+        .file-upload-wrapper:hover, .file-upload-wrapper.dragover { border-color: var(--accent); background: #fff; }
+        .file-upload-wrapper i { font-size: 2rem; color: var(--accent); margin-bottom: 10px; }
+        .file-upload-wrapper p { font-size: 0.9rem; color: var(--dark); font-weight: 700; }
+        .file-upload-wrapper span { font-size: 0.75rem; color: #b0b0b5; margin-top: 5px; }
+        .file-upload-wrapper input[type="file"] { position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: 0; cursor: pointer; }
+        #file-name-display { margin-top: 10px; font-weight: 800; color: var(--accent); font-size: 0.9rem; }
 
         /* --- FOOTER --- */
         footer { padding: 80px 0 40px; background: #fff; border-top: 1px solid var(--border); }
@@ -136,13 +117,13 @@
 
         @media (max-width: 768px) {
             .menu-toggle { display: block; }
-            .nav-links { position: fixed; top: 0; right: -100%; width: 100%; height: 100vh; background: white; flex-direction: column; justify-content: center; transition: 0.5s cubic-bezier(0.77,0.2,0.05,1.0); z-index: 2000; gap: 30px; }
+            .nav-links { position: fixed; top: 0; right: -100%; width: 100%; height: 100vh; background: white; flex-direction: column; justify-content: center; transition: 0.5s; z-index: 2000; gap: 20px; }
             .nav-links.active { right: 0; }
+            .cta-btn { margin-left: 0; }
             .form-grid { grid-template-columns: 1fr; }
-            .order-form { padding: 25px; }
             .footer-grid { grid-template-columns: 1fr; text-align: center; }
             .social-icons { justify-content: center; }
-            .footer-bottom { flex-direction: column; gap: 15px; text-align: center; }
+            .footer-bottom { flex-direction: column; gap: 15px; }
         }
     </style>
 </head>
@@ -155,110 +136,60 @@
             <i class="fas fa-bars"></i>
         </div>
         <div class="nav-links" id="navLinks">
-            <a href="/easy3dtisk/portfolio" onclick="toggleMenu()">Portfolio</a>
-            <a href="/easy3dtisk/kontakt" onclick="toggleMenu()">Kontakt</a>
-            <a href="/easy3dtisk/poptavka" class="poptavka-btn" onclick="toggleMenu()">Poptávka</a>
+            <a href="/easy3dtisk/portfolio">Portfolio</a>
+            <a href="/easy3dtisk/kontakt">Kontakt</a>
+            <a href="/easy3dtisk/kalkulacka">Kalkulačka</a>
+            <a href="#kalkulacka-sekce" class="cta-btn">Objednat</a>
         </div>
     </nav>
 
-    <section class="order-section">
+    <section class="order-section" id="kalkulacka-sekce">
         <div class="order-header">
-            <h1>Konfigurátor <span>poptávky.</span></h1>
-            <p>Vyplňte detaily vašeho projektu a my vám zašleme nezávaznou cenovou nabídku.</p>
+            <h1>Cenová <span>kalkulačka.</span></h1>
+            <p>Nahrajte svůj model a okamžitě zjistěte odhadovanou cenu tisku.</p>
         </div>
 
         <form id="poptavka-form" class="order-form">
-            <div class="form-section-title">Osobní údaje</div>
-            <div class="form-grid">
-                <div class="form-group">
-                    <label>Jméno</label>
-                    <input type="text" name="fi-sender-firstName" placeholder="Jan" required>
-                </div>
-                <div class="form-group">
-                    <label>Příjmení</label>
-                    <input type="text" name="fi-sender-lastName" placeholder="Novák" required>
-                </div>
-                <div class="form-group">
-                    <label>E-mail</label>
-                    <input type="email" name="fi-sender-email" placeholder="jan.novak@email.cz" required>
-                </div>
-                <div class="form-group">
-                    <label>Telefon</label>
-                    <input type="tel" name="fi-sender-phone" placeholder="+420 123 456 789">
+            <div class="form-section-title">1. Nahrání modelu</div>
+            <div class="form-group full-width">
+                <div class="file-upload-wrapper" id="drop-zone">
+                    <i class="fas fa-cube"></i>
+                    <p>Klikněte nebo přetáhněte STL model</p>
+                    <input type="file" name="fi-file-model" id="file-input" accept=".stl">
+                    <div id="file-name-display"></div>
                 </div>
             </div>
 
-            <div class="form-section-title">Detaily modelu</div>
+            <div class="form-section-title">2. Parametry tisku</div>
             <div class="form-grid">
-                <div class="form-group full-width">
-                    <label>Podklady pro tisk</label>
-                    <div class="file-upload-wrapper" id="drop-zone">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <p>Přetáhněte soubor sem nebo klikněte</p>
-                        <span>STL, STEP, OBJ, ZIP (max 20MB)</span>
-                        <input type="file" name="fi-file-model" id="file-input" accept=".stl,.obj,.step,.stp,.zip,.rar">
-                        <div id="file-name-display"></div>
-                    </div>
-                </div>
-                <div class="form-group full-width">
-                    <label>Nebo vložte odkaz na model</label>
-                    <input type="url" name="fi-url-model" placeholder="https://www.printables.com/model/...">
+                <div class="form-group">
+                    <label>Materiál</label>
+                    <select name="fi-select-material" id="material">
+                        <option value="PLA">PLA (Základní materiál)</option>
+                        <option value="PETG">PETG (Odolný / Pružný)</option>
+                        <option value="ABS">ABS (Technický / Tepluodolný)</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>Počet kusů</label>
-                    <input type="number" name="fi-number-quantity" value="1" min="1" required>
-                </div>
-                <div class="form-group">
-                    <label>Materiál</label>
-                    <select name="fi-select-material">
-                        <option value="Nechat vybrat nás">Doporučte mi vhodný materiál</option>
-                        <option value="PLA">PLA (Detailní modely, dekorace)</option>
-                        <option value="PETG">PETG (Odolný, funkční díly)</option>
-                        <option value="ABS">ABS (Vysoká tepelná odolnost)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Preferovaná barva</label>
-                    <select name="fi-select-color">
-                        <option value="Černá">Černá</option>
-                        <option value="Bílá">Bílá</option>
-                        <option value="Šedivá">Šedivá</option>
-                        <option value="Červená">Červená</option>
-                        <option value="Oranžová">Oranžová</option>
-                        <option value="Žlutá">Žlutá</option>
-                        <option value="Zelená">Zelená</option>
-                        <option value="Modrá">Modrá</option>
-                        <option value="Fialová">Fialová</option>
-                        <option value="Růžová">Růžová</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Prostředí využití</label>
-                    <select name="fi-select-usage">
-                        <option value="Vevnitř">Vevnitř</option>
-                        <option value="Venku">Venku (UV odolnost)</option>
-                        <option value="Vevnitř i venku">Vevnitř i venku</option>
-                    </select>
+                    <input type="number" name="fi-number-quantity" id="quantity" value="1" min="1">
                 </div>
                 <div class="form-group full-width">
-                    <label>Požadovaná pevnost</label>
-                    <select name="fi-select-durability">
-                        <option value="Vizuální (postavičky, dekorace)">Jen na výstavu (postavičky, dekorace)</option>
-                        <option value="Nízké namáhání (stojánek, váza)">Bez většího namáhání (stojánek, váza)</option>
-                        <option value="Standardní (běžná manipulace)">Klasická manipulace (standardní pevnost)</option>
-                        <option value="Vysoká pevnost">Větší pevnost (mechanické namáhání)</option>
-                        <option value="Maximální pevnost (ozubená kola)">Extra pevnost (ozubená kolečka, zatěžované díly)</option>
+                    <label>Pevnost a využití</label>
+                    <select name="fi-select-durability" id="durability">
+                        <option value="Vizuální">Vizuální (10% výplň - figurky, dekorace)</option>
+                        <option value="Standardní">Standardní (25% výplň - běžné použití)</option>
+                        <option value="Vysoká pevnost">Vysoká pevnost (55% výplň - namáhané díly)</option>
+                        <option value="Maximální pevnost">Maximální pevnost (98% výplň - extrémní zátěž)</option>
                     </select>
                 </div>
             </div>
 
-            <div class="form-group" style="margin-top: 20px;">
-                <label>Doplňující zpráva pro nás</label>
-                <textarea name="fi-text-message" placeholder="Specifikujte nám své požadavky nebo dotazy..."></textarea>
+            <div class="price-box" id="price-display">
+                <span class="label">Odhadovaná cena</span>
+                <span class="amount" id="total-price">0 Kč</span>
+                <span class="details" id="weight-info">Váha: 0g | Objem: 0cm³</span>
             </div>
-
-            <button type="submit" class="submit-btn" id="submit-btn">Odeslat nezávaznou poptávku</button>
-            <div id="form-result"></div>
         </form>
     </section>
 
@@ -291,7 +222,6 @@
             <div class="footer-col">
                 <h4>KONTAKT</h4>
                 <a href="mailto:tochtech.world@gmail.com">tochtech.world@gmail.com</a>
-                <a href="/easy3dtisk/poptavka" style="font-weight: 700; color: var(--accent);">Odeslat poptávku</a>
             </div>
         </div>
 
@@ -302,88 +232,66 @@
     </footer>
 </div>
 
-<script src="https://forminit.com/sdk/v1/forminit.js"></script>
 <script>
+    const WORKER_URL = 'https://snowy-firefly-57f1.bilcusadam.workers.dev/';
+    
     function toggleMenu() {
         const navLinks = document.getElementById('navLinks');
-        const icon = document.querySelector('#mobile-menu-icon i');
         navLinks.classList.toggle('active');
-        if (navLinks.classList.contains('active')) {
-            icon.classList.replace('fa-bars', 'fa-times');
-            document.body.style.overflow = 'hidden';
-        } else {
-            icon.classList.replace('fa-times', 'fa-bars');
-            document.body.style.overflow = 'auto';
-        }
     }
 
-    // --- FILE UPLOAD LOGIC ---
-    const dropZone = document.getElementById('drop-zone');
+    const form = document.getElementById('poptavka-form');
     const fileInput = document.getElementById('file-input');
+    const priceDisplay = document.getElementById('price-display');
+    const totalPrice = document.getElementById('total-price');
+    const weightInfo = document.getElementById('weight-info');
     const fileNameDisplay = document.getElementById('file-name-display');
 
-    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-        dropZone.addEventListener(eventName, e => {
-            e.preventDefault();
-            e.stopPropagation();
-        }, false);
-    });
+    async function calculatePrice() {
+        if (!fileInput.files[0]) return;
+        
+        totalPrice.textContent = "Výpočet...";
+        priceDisplay.style.display = "block";
+        
+        const formData = new FormData(form);
 
-    ['dragenter', 'dragover'].forEach(eventName => {
-        dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
-    });
-
-    ['dragleave', 'drop'].forEach(eventName => {
-        dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
-    });
-
-    dropZone.addEventListener('drop', e => {
-        const files = e.dataTransfer.files;
-        fileInput.files = files;
-        updateFileName();
-    });
-
-    fileInput.addEventListener('change', updateFileName);
-
-    function updateFileName() {
-        if (fileInput.files.length > 0) {
-            fileNameDisplay.textContent = 'Vybráno: ' + fileInput.files[0].name;
-        } else {
-            fileNameDisplay.textContent = '';
+        try {
+            const response = await fetch(WORKER_URL, {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+            if (data.success) {
+                totalPrice.textContent = `${data.cena} Kč`;
+                weightInfo.textContent = `Váha: ${data.vaha}g | Objem: ${data.volume}cm³`;
+            }
+        } catch (e) {
+            totalPrice.textContent = "Chyba spojení";
         }
     }
 
-    // --- FORM SUBMIT ---
-    const forminit = new Forminit();
-    const FORM_ID = 'hwrzb65anjo';
-    const form = document.getElementById('poptavka-form');
-    const resultDiv = document.getElementById('form-result');
-    const btn = document.getElementById('submit-btn');
+    ['change', 'input'].forEach(evt => {
+        document.getElementById('material').addEventListener(evt, calculatePrice);
+        document.getElementById('quantity').addEventListener(evt, calculatePrice);
+        document.getElementById('durability').addEventListener(evt, calculatePrice);
+    });
 
-    form.addEventListener('submit', async function(event) {
-        event.preventDefault();
-        btn.textContent = 'Odesílám poptávku...';
-        btn.disabled = true;
-
-        const formData = new FormData(form);
-        const { error } = await forminit.submit(FORM_ID, formData);
-
-        if (error) {
-            resultDiv.textContent = 'Chyba: ' + error.message;
-            resultDiv.style.background = '#ffebee';
-            resultDiv.style.color = '#c62828';
-            resultDiv.style.display = 'block';
-            btn.disabled = false;
-            btn.textContent = 'Zkusit znovu';
-        } else {
-            resultDiv.textContent = 'Poptávka byla úspěšně odeslána. Brzy se vám ozveme!';
-            resultDiv.style.background = '#e8f5e9';
-            resultDiv.style.color = '#2e7d32';
-            resultDiv.style.display = 'block';
-            form.reset();
-            fileNameDisplay.textContent = '';
-            btn.style.display = 'none';
+    fileInput.addEventListener('change', () => {
+        if (fileInput.files[0]) {
+            fileNameDisplay.textContent = 'Vybráno: ' + fileInput.files[0].name;
+            calculatePrice();
         }
+    });
+
+    const dropZone = document.getElementById('drop-zone');
+    dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('dragover');
+        fileInput.files = e.dataTransfer.files;
+        fileNameDisplay.textContent = 'Vybráno: ' + fileInput.files[0].name;
+        calculatePrice();
     });
 </script>
 
