@@ -14,7 +14,7 @@
 
     <style>
         :root {
-            --accent: #ff6600; --dark: #1a1a1a; --gray-bg: #f9f9fb; --border: #f0f0f0; --text: #1d1d1f; --success: #00ca72; --soft-bg: #f5f5f7;
+            --accent: #ff6600; --dark: #1a1a1a; --border: #f0f0f0; --text: #1d1d1f; --success: #00ca72; --soft-bg: #f5f5f7;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: #ffffff; color: var(--text); -webkit-font-smoothing: antialiased; }
@@ -44,59 +44,51 @@
         .step-card.active { display: block; animation: slideUp 0.4s ease-out; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .form-section-title { font-family: 'Outfit', sans-serif; font-size: 1.4rem; margin: 30px 0 20px; color: var(--dark); border-bottom: 2px solid var(--soft-bg); padding-bottom: 10px; font-weight: 700; }
-        .form-section-title:first-child { margin-top: 0; }
+        .form-section-title { font-family: 'Outfit', sans-serif; font-size: 1.4rem; margin: 30px 0 20px; color: var(--dark); border-bottom: 2px solid var(--soft-bg); padding-bottom: 10px; font-weight: 700; display: flex; align-items: center; gap: 12px; }
 
-        /* --- FILE UPLOAD --- */
+        /* --- FILE UPLOAD (Styl z kalkulačky) --- */
         .file-upload-wrapper {
             position: relative; width: 100%; min-height: 160px; border: 2px dashed #d1d1d6; border-radius: 20px;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--soft-bg); transition: 0.3s; cursor: pointer; padding: 20px; text-align: center;
-            margin-bottom: 30px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--soft-bg); transition: 0.3s; cursor: pointer; padding: 20px; text-align: center; margin-bottom: 30px;
         }
-        .file-upload-wrapper:hover { border-color: var(--accent); background: #fff; }
+        .file-upload-wrapper:hover, .file-upload-wrapper.dragover { border-color: var(--accent); background: #fff; }
         .file-upload-wrapper i { font-size: 2.5rem; color: var(--accent); margin-bottom: 15px; }
         .file-upload-wrapper p { font-size: 1rem; color: var(--dark); font-weight: 700; }
         .file-upload-wrapper input[type="file"] { position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: 0; cursor: pointer; }
-        .file-upload-wrapper.has-file { border-style: solid; border-color: var(--success); background: #f0fff7; }
         #file-name-display { margin-top: 10px; font-weight: 800; color: var(--accent); font-size: 0.9rem; }
 
         /* --- FORM ELEMENTS --- */
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
-        .form-group { margin-bottom: 20px; }
         .full-width { grid-column: 1 / -1; }
         label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; color: var(--dark); }
         input, select { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid var(--border); background: var(--soft-bg); font-family: inherit; font-size: 1rem; transition: 0.3s; outline: none; }
-        input:focus, select:focus { border-color: var(--accent); background: #fff; }
+        input:focus { border-color: var(--accent); background: #fff; }
 
-        /* --- PRICE DISPLAY --- */
-        .price-box {
-            background: var(--dark); color: white; padding: 40px; border-radius: 30px; margin: 30px 0;
-            text-align: center; border: 1px solid rgba(255,102,0,0.2);
-        }
-        .price-box .price-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-bottom: 10px; display: block; }
-        .price-box .amount { font-family: 'Outfit', sans-serif; font-size: 3.5rem; font-weight: 900; color: var(--accent); display: block; line-height: 1; }
-        .price-box .details { font-size: 0.9rem; color: #aaa; margin-top: 15px; display: block; }
+        /* --- CHECKBOX --- */
+        .check-wrap { display: flex; align-items: center; gap: 12px; margin: 20px 0; cursor: pointer; width: fit-content; padding: 5px 0; }
+        .check-wrap input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent); cursor: pointer; margin: 0; }
+        .check-wrap span { font-weight: 700; font-size: 0.95rem; color: var(--dark); }
 
-        /* --- DELIVERY & COMPANY --- */
-        .delivery-option {
-            border: 2px solid var(--border); border-radius: 20px; padding: 25px; cursor: pointer;
-            text-align: center; transition: 0.3s; background: var(--soft-bg); margin-bottom: 30px;
-        }
-        .delivery-option.selected { border-color: var(--accent); background: #fff9f5; }
-        .delivery-option img { height: 35px; margin-bottom: 10px; }
+        /* --- DELIVERY BOXES --- */
+        .delivery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .delivery-card { border: 2px solid var(--border); border-radius: 20px; padding: 25px; text-align: center; cursor: pointer; transition: 0.3s; background: var(--soft-bg); }
+        .delivery-card.selected { border-color: var(--accent); background: #fff9f5; }
+        .delivery-card i { font-size: 1.8rem; color: var(--accent); margin-bottom: 10px; }
 
-        .company-toggle { margin-bottom: 25px; display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 700; font-size: 0.9rem; }
-        .company-toggle input { width: auto; }
-        #company-fields { display: none; margin-bottom: 20px; border-left: 3px solid var(--accent); padding-left: 20px; animation: fadeIn 0.3s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* --- PRICE BOX --- */
+        .price-box { background: var(--dark); color: white; padding: 40px; border-radius: 30px; margin: 30px 0; text-align: center; }
+        .amount { font-family: 'Outfit', sans-serif; font-size: 3.5rem; font-weight: 900; color: var(--accent); }
+        
+        .recap-box { background: var(--soft-bg); border-radius: 25px; padding: 30px; border: 1px solid var(--border); }
+        .recap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+        .recap-col h4 { font-size: 0.8rem; text-transform: uppercase; color: #888; margin-bottom: 12px; letter-spacing: 1px; }
+        .recap-item { margin-bottom: 6px; font-size: 0.95rem; }
 
-        .btn-action {
-            background: var(--accent); color: white; border: none; padding: 22px; border-radius: 50px;
-            width: 100%; font-weight: 900; font-family: 'Outfit'; font-size: 1.2rem; cursor: pointer;
-            text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; box-shadow: 0 10px 25px rgba(255, 102, 0, 0.2);
-        }
-        .btn-action:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(255, 102, 0, 0.3); }
+        .btn-action { background: var(--accent); color: white; border: none; padding: 22px; border-radius: 50px; width: 100%; font-weight: 900; font-family: 'Outfit'; font-size: 1.2rem; cursor: pointer; text-transform: uppercase; transition: 0.3s; box-shadow: 0 10px 25px rgba(255, 102, 0, 0.2); }
         .btn-action:disabled { background: #e0e0e0; color: #999; cursor: not-allowed; box-shadow: none; }
+
+        .hidden-section { display: none; margin-bottom: 20px; border-left: 3px solid var(--accent); padding-left: 20px; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* --- FOOTER --- */
         footer { padding: 80px 0 40px; background: #fff; border-top: 1px solid var(--border); margin-top: 100px; }
@@ -105,8 +97,7 @@
         .footer-brand .footer-logo span { color: var(--accent); }
         .footer-brand p { color: #86868b; line-height: 1.6; font-size: 0.95rem; }
         .footer-col h4 { font-size: 0.8rem; text-transform: uppercase; color: #b0b0b5; letter-spacing: 2px; margin-bottom: 25px; font-weight: 800; }
-        .footer-col a, .footer-col p { color: var(--text); text-decoration: none; display: block; margin-bottom: 15px; font-size: 0.95rem; transition: 0.2s; }
-        .footer-col a:hover { color: var(--accent); padding-left: 5px; }
+        .footer-col a, .footer-col p { color: var(--text); text-decoration: none; display: block; margin-bottom: 15px; font-size: 0.95rem; }
         .footer-bottom { border-top: 1px solid #f2f2f2; margin-top: 60px; padding-top: 30px; display: flex; justify-content: space-between; align-items: center; }
         .copyright { font-size: 0.85rem; color: #b0b0b5; }
 
@@ -114,9 +105,7 @@
             .menu-toggle { display: block; }
             .nav-links { position: fixed; top: 0; right: -100%; width: 100%; height: 100vh; background: white; flex-direction: column; justify-content: center; transition: 0.5s; z-index: 2000; gap: 20px; }
             .nav-links.active { right: 0; }
-            .form-grid { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr; text-align: center; }
-            .footer-bottom { flex-direction: column; gap: 15px; }
+            .form-grid, .delivery-grid, .footer-grid, .recap-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -141,94 +130,115 @@
 
         <form id="order-form">
             <div class="step-card active" id="step1">
-                <div class="form-section-title">1. Nahrání a konfigurace</div>
-                
-                <div class="file-upload-wrapper" id="dropzone">
-                    <i class="fas fa-cube"></i>
-                    <p id="file-label">Klikněte nebo přetáhněte STL model</p>
+                <div class="form-section-title"><i class="fas fa-cube"></i> 1. Nahrání modelu</div>
+                <div class="file-upload-wrapper" id="drop-zone">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Klikněte nebo přetáhněte STL model</p>
                     <input type="file" name="fi-file-model" id="file-input" accept=".stl" required>
                     <div id="file-name-display"></div>
                 </div>
 
+                <div class="form-section-title"><i class="fas fa-sliders-h"></i> 2. Parametry tisku</div>
                 <div class="form-grid">
                     <div class="form-group">
                         <label>Materiál</label>
-                        <select name="fi-select-material" id="calc-mat">
-                            <option value="PLA">PLA (Standardní)</option>
-                            <option value="PETG">PETG (Odolný)</option>
-                            <option value="ABS">ABS (Technický)</option>
+                        <select name="fi-select-material" id="material">
+                            <option value="PLA">PLA (Základní materiál)</option>
+                            <option value="PETG">PETG (Odolný / Pružný)</option>
+                            <option value="ABS">ABS (Technický / Tepluodolný)</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label>Počet kusů</label>
-                        <input type="number" name="fi-number-quantity" id="calc-qty" value="1" min="1">
+                        <input type="number" name="fi-number-quantity" id="quantity" value="1" min="1">
                     </div>
-                    <div class="form-group">
-                        <label>Odolnost / Infill</label>
-                        <select name="fi-select-durability" id="calc-dur">
-                            <option value="Jen na výstavu">Jen na výstavu (10%)</option>
-                            <option value="Standardní">Standardní (25%)</option>
-                            <option value="Vysoká">Vysoká (55%)</option>
-                            <option value="Maximální">Maximální (98%)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Barva</label>
-                        <select name="fi-select-color">
-                            <option value="Černá">Černá</option><option value="Bílá">Bílá</option><option value="Šedivá">Šedivá</option>
-                            <option value="Červená">Červená</option><option value="Oranžová">Oranžová</option><option value="Žlutá">Žlutá</option>
-                            <option value="Zelená">Zelená</option><option value="Modrá">Modrá</option>
+                    <div class="form-group full-width">
+                        <label>Pevnost a využití</label>
+                        <select name="fi-select-durability" id="durability">
+                            <option value="Vizuální">Vizuální (10% výplň - figurky, dekorace)</option>
+                            <option value="Standardní">Standardní (25% výplň - běžné použití)</option>
+                            <option value="Vysoká pevnost">Vysoká pevnost (55% výplň - namáhané díly)</option>
+                            <option value="Maximální pevnost">Maximální pevnost (98% výplň - extrémní zátěž)</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="price-box">
-                    <span class="price-label" id="price-status">Nejdříve nahrajte soubor .STL</span>
-                    <span class="amount" id="display-price">0 Kč</span>
-                    <span class="details" id="tech-details">Váha: 0g | Objem: 0cm³</span>
-                    <input type="hidden" name="fi-number-total-price" id="final-price-hidden" value="0">
+                    <span class="amount" id="total-price">0 Kč</span>
+                    <p id="weight-info" style="color:#888; margin-top:10px;">Nahrajte model pro kalkulaci</p>
+                    <input type="hidden" id="print-price-hidden" value="0">
                 </div>
-
-                <button type="button" class="btn-action" id="next-step-btn" disabled onclick="changeStep(2)">Pokračovat k údajům</button>
+                <button type="button" class="btn-action" id="to-step-2" disabled onclick="changeStep(2)">Pokračovat k údajům</button>
             </div>
 
             <div class="step-card" id="step2">
-                <div class="form-section-title">2. Fakturační údaje</div>
-                <div class="form-grid">
-                    <div class="form-group"><label>Jméno</label><input type="text" name="fi-sender-firstName" id="c-name" placeholder="Jan" required oninput="checkStep2()"></div>
-                    <div class="form-group"><label>Příjmení</label><input type="text" name="fi-sender-lastName" id="c-surname" placeholder="Novák" required oninput="checkStep2()"></div>
+                <div class="form-section-title"><i class="fas fa-truck"></i> 3. Doprava</div>
+                <div class="delivery-grid">
+                    <div class="delivery-card" id="del-zas" onclick="setDelivery('zasilkovna', 79)">
+                        <i class="fas fa-box"></i>
+                        <p><strong>Zásilkovna</strong><br>79 Kč</p>
+                    </div>
+                    <div class="delivery-card" id="del-adr" onclick="setDelivery('adresa', 129)">
+                        <i class="fas fa-home"></i>
+                        <p><strong>Na adresu</strong><br>129 Kč</p>
+                    </div>
+                </div>
+                
+                <div id="diff-addr-trigger-wrap" class="hidden-section">
+                    <label class="check-wrap">
+                        <input type="checkbox" id="check-diff-addr" onchange="toggleSec('diff-addr-fields', this)">
+                        <span>Doručit na jinou adresu</span>
+                    </label>
+                </div>
+                <div id="diff-addr-fields" class="hidden-section">
+                    <div class="form-group"><label>Ulice a č.p. (Doručení)</label><input type="text" name="fi-text-ship-street" id="v-ship-street"></div>
+                    <div class="form-grid">
+                        <div class="form-group"><label>Město</label><input type="text" name="fi-text-ship-city" id="v-ship-city"></div>
+                        <div class="form-group"><label>PSČ</label><input type="text" name="fi-text-ship-zip" id="v-ship-zip"></div>
+                    </div>
                 </div>
 
-                <label class="company-toggle">
-                    <input type="checkbox" id="is-company" onchange="toggleCompany()"> Nakoupit na firmu
+                <div class="form-section-title"><i class="fas fa-file-invoice"></i> 4. Fakturační údaje</div>
+                <label class="check-wrap">
+                    <input type="checkbox" id="is-company" onchange="toggleSec('company-fields', this)">
+                    <span>Nakoupit na firmu</span>
                 </label>
-
-                <div id="company-fields">
-                    <div class="form-group"><label>Název firmy</label><input type="text" name="fi-text-company-name" id="c-comp-name" oninput="checkStep2()"></div>
+                <div id="company-fields" class="hidden-section">
+                    <div class="form-group"><label>Název firmy</label><input type="text" name="fi-text-company-name" id="v-comp-name"></div>
                     <div class="form-grid">
-                        <div class="form-group"><label>IČO</label><input type="text" name="fi-text-ico" id="c-ico" oninput="checkStep2()"></div>
-                        <div class="form-group"><label>DIČ (volitelné)</label><input type="text" name="fi-text-dic" id="c-dic"></div>
+                        <div class="form-group"><label>IČO</label><input type="text" name="fi-text-ico" id="v-ico"></div>
+                        <div class="form-group"><label>DIČ</label><input type="text" name="fi-text-dic"></div>
                     </div>
                 </div>
 
                 <div class="form-grid">
-                    <div class="form-group"><label>Ulice a č.p.</label><input type="text" name="fi-text-street" id="c-street" required oninput="checkStep2()"></div>
-                    <div class="form-group"><label>Město</label><input type="text" name="fi-text-city" id="c-city" required oninput="checkStep2()"></div>
-                    <div class="form-group"><label>PSČ</label><input type="text" name="fi-text-zip" id="c-zip" required oninput="checkStep2()"></div>
-                    <div class="form-group"><label>Telefon</label><input type="tel" name="fi-sender-phone" id="c-phone" placeholder="+420..." required oninput="checkStep2()"></div>
+                    <div class="form-group"><label>Jméno</label><input type="text" name="fi-sender-firstName" id="v-name" required oninput="val2()"></div>
+                    <div class="form-group"><label>Příjmení</label><input type="text" name="fi-sender-lastName" id="v-surname" required oninput="val2()"></div>
+                    <div class="form-group"><label>Ulice a č.p.</label><input type="text" name="fi-text-street" id="v-street" required oninput="val2()"></div>
+                    <div class="form-group"><label>Město</label><input type="text" name="fi-text-city" id="v-city" required oninput="val2()"></div>
+                    <div class="form-group"><label>PSČ</label><input type="text" name="fi-text-zip" id="v-zip" required oninput="val2()"></div>
+                    <div class="form-group"><label>Telefon</label><input type="tel" name="fi-sender-phone" id="v-phone" required oninput="val2()"></div>
                 </div>
-                <div class="form-group"><label>E-mail</label><input type="email" name="fi-sender-email" id="c-email" placeholder="vas@email.cz" required oninput="checkStep2()"></div>
-
-                <div class="form-section-title">3. Doprava</div>
-                <div class="delivery-option" id="zas-trigger" onclick="openZasilkovna()">
-                    <img src="https://koralkydni.cz/wp-content/uploads/2018/03/zasilkovna-logo.png" alt="Zásilkovna">
-                    <p id="point-name"><strong>Vybrat výdejní místo</strong></p>
-                    <input type="hidden" name="fi-text-delivery-point" id="point-id">
+                <div class="form-group" style="margin-bottom: 40px;">
+                    <label>E-mail</label>
+                    <input type="email" name="fi-sender-email" id="v-email" required oninput="val2()">
                 </div>
 
-                <button type="submit" class="btn-action" id="submit-btn" disabled>Odeslat objednávku</button>
-                <p style="text-align:center; margin-top:20px; color:#bbb; cursor:pointer;" onclick="changeStep(1)">← Zpět k nastavení</p>
-                <div id="form-status" style="text-align:center; margin-top:20px; font-weight:700;"></div>
+                <button type="button" class="btn-action" id="to-step-3" disabled onclick="renderRecap(); changeStep(3)">Zkontrolovat rekapitulaci</button>
+                <a style="display:block; text-align:center; margin-top:20px; color:#888; cursor:pointer;" onclick="changeStep(1)">← Zpět k nastavení</a>
+            </div>
+
+            <div class="step-card" id="step3">
+                <div class="form-section-title"><i class="fas fa-clipboard-check"></i> 5. Poslední kontrola</div>
+                <div id="final-recap-box" class="recap-box"></div>
+                
+                <input type="hidden" name="fi-number-total-price" id="final-total">
+                <input type="hidden" name="fi-text-delivery-type" id="in-del-type">
+                <input type="hidden" name="fi-text-delivery-point" id="in-del-point">
+
+                <button type="submit" class="btn-action" id="submit-btn" style="margin-top:30px;">Odeslat objednávku</button>
+                <a style="display:block; text-align:center; margin-top:20px; color:#888; cursor:pointer;" onclick="changeStep(2)">← Upravit údaje</a>
+                <div id="form-status" style="text-align:center; margin-top:20px;"></div>
             </div>
         </form>
     </section>
@@ -249,122 +259,182 @@
 
 <script>
     const WORKER_URL = 'https://snowy-firefly-57f1.bilcusadam.workers.dev/';
-    const FORM_ID = 'hwrzb65anjo'; 
+    const FORM_ID = 'hwrzb65anjo';
     const forminit = new Forminit();
 
-    function toggleMenu() {
-        document.getElementById('navLinks').classList.toggle('active');
-    }
-
-    function toggleCompany() {
-        const fields = document.getElementById('company-fields');
-        fields.style.display = document.getElementById('is-company').checked ? 'block' : 'none';
-        checkStep2();
-    }
-
-    async function analyzeModel() {
-        const fileInput = document.getElementById('file-input');
-        const nextBtn = document.getElementById('next-step-btn');
-        if (!fileInput.files[0]) return;
-        
-        const status = document.getElementById('price-status');
-        const priceDisplay = document.getElementById('display-price');
-        const techDetails = document.getElementById('tech-details');
-        
-        status.innerText = "Analyzuji geometrii...";
-        nextBtn.disabled = true;
-        
-        const formData = new FormData();
-        formData.append('fi-file-model', fileInput.files[0]);
-        formData.append('fi-number-quantity', document.getElementById('calc-qty').value);
-        formData.append('fi-select-material', document.getElementById('calc-mat').value);
-        formData.append('fi-select-durability', document.getElementById('calc-dur').value);
-
-        try {
-            const response = await fetch(WORKER_URL, { method: 'POST', body: formData });
-            const data = await response.json();
-            if (data.success) {
-                priceDisplay.innerText = data.cena + " Kč";
-                document.getElementById('final-price-hidden').value = data.cena;
-                status.innerText = "Odhadovaná cena";
-                techDetails.innerText = `Váha: ${data.vaha}g | Objem: ${data.volume}cm³`;
-                nextBtn.disabled = false;
-            }
-        } catch (e) { 
-            status.innerText = "Chyba kalkulace."; 
-        }
-    }
-
-    function checkStep2() {
-        const fields = ['c-name', 'c-surname', 'c-street', 'c-city', 'c-zip', 'c-phone', 'c-email'];
-        let allFilled = fields.every(id => document.getElementById(id).value.trim() !== "");
-        
-        if (document.getElementById('is-company').checked) {
-            if (!document.getElementById('c-comp-name').value.trim() || !document.getElementById('c-ico').value.trim()) {
-                allFilled = false;
-            }
-        }
-        
-        const point = document.getElementById('point-id').value;
-        document.getElementById('submit-btn').disabled = !(allFilled && point);
-    }
-
-    document.getElementById('file-input').addEventListener('change', function() {
-        if(this.files[0]) {
-            document.getElementById('file-name-display').innerText = "Vybráno: " + this.files[0].name;
-            document.getElementById('dropzone').classList.add('has-file');
-            analyzeModel();
-        }
-    });
-
-    ['calc-mat', 'calc-qty', 'calc-dur'].forEach(id => {
-        document.getElementById(id).addEventListener('change', analyzeModel);
-    });
-
-    function changeStep(n) {
+    function toggleMenu() { document.getElementById('navLinks').classList.toggle('active'); }
+    
+    function changeStep(n) { 
         document.querySelectorAll('.step-card').forEach(c => c.classList.remove('active'));
         document.getElementById('step' + n).classList.add('active');
         window.scrollTo(0,0);
     }
 
-    function openZasilkovna() {
-        Packeta.Widget.pick("69435b806d649d8c", function(p) {
-            if(p) {
-                document.getElementById('point-id').value = p.name + " (" + p.id + ")";
-                document.getElementById('point-name').innerHTML = "<strong>✓ " + p.name + "</strong>";
-                document.getElementById('zas-trigger').classList.add('selected');
-                checkStep2();
-            }
-        }, { country: 'cz' });
+    function toggleSec(id, cb) { 
+        document.getElementById(id).style.display = cb.checked ? 'block' : 'none'; 
+        val2(); 
     }
 
+    // --- LOGIKA KALKULACE (Z vaší kalkulačky) ---
+    async function calculatePrice() {
+        const fileInput = document.getElementById('file-input');
+        if (!fileInput.files[0]) return;
+        
+        const btn = document.getElementById('to-step-2');
+        const totalPriceEl = document.getElementById('total-price');
+        const weightInfo = document.getElementById('weight-info');
+
+        btn.disabled = true;
+        totalPriceEl.textContent = "Výpočet...";
+        
+        const formData = new FormData(document.getElementById('order-form'));
+
+        try {
+            const response = await fetch(WORKER_URL, {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+            if (data.success) {
+                totalPriceEl.textContent = `${data.cena} Kč`;
+                document.getElementById('print-price-hidden').value = data.cena;
+                weightInfo.textContent = `Váha: ${data.vaha}g | Objem: ${data.volume}cm³`;
+                btn.disabled = false;
+            } else {
+                totalPriceEl.textContent = "Chyba výpočtu";
+            }
+        } catch (e) {
+            totalPriceEl.textContent = "Chyba spojení";
+        }
+    }
+
+    // Sledování změn pro kalkulaci
+    ['change', 'input'].forEach(evt => {
+        document.getElementById('material').addEventListener(evt, calculatePrice);
+        document.getElementById('quantity').addEventListener(evt, calculatePrice);
+        document.getElementById('durability').addEventListener(evt, calculatePrice);
+    });
+
+    const fileInput = document.getElementById('file-input');
+    const fileNameDisplay = document.getElementById('file-name-display');
+    fileInput.addEventListener('change', () => {
+        if (fileInput.files[0]) {
+            fileNameDisplay.textContent = 'Vybráno: ' + fileInput.files[0].name;
+            calculatePrice();
+        }
+    });
+
+    // Drag & Drop
+    const dropZone = document.getElementById('drop-zone');
+    dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('dragover');
+        fileInput.files = e.dataTransfer.files;
+        fileNameDisplay.textContent = 'Vybráno: ' + fileInput.files[0].name;
+        calculatePrice();
+    });
+
+    // --- DOPRAVA A VALIDACE ---
+    function setDelivery(type, cost) {
+        document.querySelectorAll('.delivery-card').forEach(c => c.classList.remove('selected'));
+        const cardId = type === 'zasilkovna' ? 'del-zas' : 'del-adr';
+        const card = document.getElementById(cardId);
+        if(card) card.classList.add('selected');
+        
+        document.getElementById('in-del-type').value = type;
+        const diffWrap = document.getElementById('diff-addr-trigger-wrap');
+        
+        if(type === 'zasilkovna') {
+            if(diffWrap) diffWrap.style.display = 'none';
+            Packeta.Widget.pick("69435b806d649d8c", (p) => {
+                if(p) { 
+                    document.getElementById('in-del-point').value = p.name + " (" + p.id + ")"; 
+                    val2();
+                }
+            }, { country: 'cz' });
+        } else {
+            if(diffWrap) diffWrap.style.display = 'block';
+            document.getElementById('in-del-point').value = "Doručení na adresu";
+            val2();
+        }
+    }
+
+    function val2() {
+        const fields = ['v-name', 'v-surname', 'v-street', 'v-city', 'v-zip', 'v-phone', 'v-email'];
+        const allFilled = fields.every(id => {
+            const el = document.getElementById(id);
+            return el && el.value.trim() !== "";
+        });
+        const deliverySelected = document.getElementById('in-del-type').value !== "";
+        document.getElementById('to-step-3').disabled = !(allFilled && deliverySelected);
+    }
+
+    function renderRecap() {
+        const printPrice = parseInt(document.getElementById('print-price-hidden').value) || 0;
+        const delType = document.getElementById('in-del-type').value;
+        const shipPrice = delType === 'zasilkovna' ? 79 : 129;
+        const totalPrice = printPrice + shipPrice;
+        
+        document.getElementById('final-total').value = totalPrice;
+
+        let loc = document.getElementById('in-del-point').value;
+        if(delType === 'adresa') {
+            if(document.getElementById('check-diff-addr').checked) {
+                loc = document.getElementById('v-ship-street').value + ", " + document.getElementById('v-ship-city').value;
+            } else {
+                loc = document.getElementById('v-street').value + ", " + document.getElementById('v-city').value;
+            }
+        }
+
+        document.getElementById('final-recap-box').innerHTML = `
+            <div class="recap-grid">
+                <div class="recap-col">
+                    <h4>Tisk</h4>
+                    <div class="recap-item">Model: <strong>${document.getElementById('file-input').files[0]?.name || 'Neznámý'}</strong></div>
+                    <div class="recap-item">Materiál: <strong>${document.getElementById('material').value}</strong></div>
+                    <div class="recap-item">Pevnost: <strong>${document.getElementById('durability').value}</strong></div>
+                    <div class="recap-item">Kusů: <strong>${document.getElementById('quantity').value}</strong></div>
+                </div>
+                <div class="recap-col">
+                    <h4>Doručení</h4>
+                    <div class="recap-item">Příjemce: <strong>${document.getElementById('v-name').value} ${document.getElementById('v-surname').value}</strong></div>
+                    <div class="recap-item">Místo: <br><strong>${loc}</strong></div>
+                </div>
+            </div>
+            <hr style="margin:20px 0; border:0; border-top:1px solid #ddd;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-weight:700; color:#888;">CELKEM:</span>
+                <span style="font-size:1.8rem; font-weight:900; color:var(--accent);">${totalPrice} Kč</span>
+            </div>
+        `;
+    }
+
+    // ODESLÁNÍ
     document.getElementById('order-form').addEventListener('submit', async function(e) {
         e.preventDefault();
         const btn = document.getElementById('submit-btn');
-        const statusDiv = document.getElementById('form-status');
-        
         btn.disabled = true; 
         btn.innerText = "Odesílám...";
         
-        const formData = new FormData(this);
-
         try {
-            const result = await forminit.submit(FORM_ID, formData);
-            if(result && !result.error) {
-                statusDiv.innerHTML = `
-                    <div style="background:#f0fff7; padding:25px; border-radius:25px; border:2px solid #00ca72; margin-top:20px;">
-                        <h3 style="color:#00ca72; font-family:'Outfit'; margin-bottom:10px;">✓ Objednávka přijata!</h3>
-                        <p style="font-size:0.95rem; color:#444; line-height:1.5;">Děkujeme. Brzy vám zašleme e-mailem fakturu s QR kódem.</p>
+            const res = await forminit.submit(FORM_ID, new FormData(this));
+            if(res && !res.error) {
+                document.getElementById('step3').innerHTML = `
+                    <div style='text-align:center; padding:40px;'>
+                        <i class='fas fa-check-circle' style='font-size:3rem; color:var(--success); margin-bottom:15px;'></i>
+                        <h2>Děkujeme!</h2>
+                        <p>Objednávka byla přijata. Brzy vás kontaktujeme.</p>
                     </div>`;
-                btn.style.display = "none";
-                setTimeout(() => { location.href = "/easy3dtisk/"; }, 8000);
+                setTimeout(() => location.href = "/easy3dtisk/", 5000);
             } else {
-                throw new Error(result.error);
+                throw new Error(res?.error || "Neznámá chyba");
             }
         } catch (err) {
             btn.disabled = false;
             btn.innerText = "Zkusit znovu";
-            statusDiv.innerHTML = `<p style="color:red; margin-top:10px;">Chyba: ${err.message}</p>`;
+            alert("Chyba při odesílání: " + err.message);
         }
     });
 </script>
