@@ -161,13 +161,13 @@
 
                 <div class="form-group full-width">
                     <label>Co nejvíce specifikujte Váš požadavek</label>
-                    <textarea name="specifikace" placeholder="Potřebuji vytisknout držák na kameru, který bude odolný vůči slunci..."></textarea>
+                    <textarea name="specifikace" placeholder="Potřebuji vytisknout držák na kameru..."></textarea>
                 </div>
 
                 <div class="form-group full-width">
-                    <label>Model k tisku</label>
+                    <label>Model k tisku (Vložte odkaz nebo nahrajte soubor STL)</label>
                     <div class="upload-stack">
-                        <input type="url" name="odkaz" placeholder="https://www.printables.com/model/123...">
+                        <input type="url" name="odkaz" id="url-input" placeholder="https://www.printables.com/...">
                         <div class="file-upload-wrapper">
                             <i class="fas fa-cube"></i>
                             <p>Nahrát STL soubor</p>
@@ -179,14 +179,16 @@
 
                 <div class="form-group">
                     <label>Barva</label>
-                    <select name="barva">
-                        <option value="Červená">Červená</option>
-                        <option value="Oranžová">Oranžová</option>
-                        <option value="Žlutá">Žlutá</option>
-                        <option value="Šedivá">Šedivá</option>
-                        <option value="Hnědá">Hnědá</option>
-                        <option value="Zelená">Zelená</option>
-                        <option value="Modrá">Modrá</option>
+                    <select name="barva" id="color-select">
+                        <option value="Černá">Černá</option>
+                        <option value="Bílá">Bílá</option>
+                        <option value="Červená" data-extra="5">Červená (+5 Kč)</option>
+                        <option value="Oranžová" data-extra="5">Oranžová (+5 Kč)</option>
+                        <option value="Žlutá" data-extra="5">Žlutá (+5 Kč)</option>
+                        <option value="Šedivá" data-extra="5">Šedivá (+5 Kč)</option>
+                        <option value="Hnědá" data-extra="5">Hnědá (+5 Kč)</option>
+                        <option value="Zelená" data-extra="5">Zelená (+5 Kč)</option>
+                        <option value="Modrá" data-extra="5">Modrá (+5 Kč)</option>
                     </select>
                 </div>
 
@@ -200,9 +202,14 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Kde bude produkt využívaný</label>
-                    <input type="text" name="vyuziti" placeholder="Venkovní použití, interiér vozu...">
+                    <label>Využití produktu</label>
+                    <select name="vyuziti">
+                        <option value="Interiér">Vnitřní použití</option>
+                        <option value="Exteriér">Venkovní použití</option>
+                        <option value="Oboje">Oboje (Vnitřní i venkovní)</option>
+                    </select>
                 </div>
+
                 <div class="form-group">
                     <label>Pevnost a výplň</label>
                     <select name="fi-select-durability" id="durability">
@@ -234,37 +241,27 @@
         <div class="footer-grid">
             <div class="footer-brand">
                 <a href="/easy3dtisk/" class="footer-logo">Easy<span>3D</span>tisk</a>
-                <p>Precizní 3D tisk a zakázková výroba. Oživujeme vaše nápady s důrazem na detail a kvalitu materiálu.</p>
+                <p>Precizní 3D tisk a zakázková výroba.</p>
                 <div class="social-icons">
-                    <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://instagram.com/easy3dtisk" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
-
             <div class="footer-col">
                 <h4>SÍDLO FIRMY</h4>
-                <p>Divišov</p>
-                <p>257 26</p>
-                <p>Česká republika</p>
+                <p>Divišov, 257 26</p>
             </div>
-
             <div class="footer-col">
                 <h4>INFORMACE</h4>
                 <a href="/easy3dtisk/obchodni-podminky">Obchodní podmínky</a>
                 <a href="/easy3dtisk/ochrana-soukromi">Ochrana soukromí</a>
-                <a href="/easy3dtisk/reklamace">Reklamace a vrácení</a>
             </div>
-
             <div class="footer-col">
                 <h4>KONTAKT</h4>
                 <a href="mailto:tochtech.world@gmail.com">tochtech.world@gmail.com</a>
             </div>
         </div>
-
         <div class="footer-bottom">
             <p class="copyright">© 2026 Easy3Dtisk. Všechna práva vyhrazena.</p>
-            <p style="font-size: 0.8rem; color: #d1d1d6;">Made with passion for 3D Printing</p>
         </div>
     </footer>
 </div>
@@ -273,35 +270,80 @@
     const WORKER_URL = 'https://snowy-firefly-57f1.bilcusadam.workers.dev/';
     const form = document.getElementById('poptavka-form');
     const fileInput = document.getElementById('file-input');
-    const totalPrice = document.getElementById('total-price');
+    const urlInput = document.getElementById('url-input');
+    const colorSelect = document.getElementById('color-select');
+    const totalPriceDisplay = document.getElementById('total-price');
     const fileNameDisplay = document.getElementById('file-name-display');
 
+    let basePriceFromWorker = 0;
+
     async function calculatePrice() {
-        if (!fileInput.files[0]) return;
-        totalPrice.textContent = "...";
+        if (!fileInput.files[0]) {
+            updateFinalDisplay(0);
+            return;
+        }
+
+        totalPriceDisplay.textContent = "...";
         const formData = new FormData(form);
+        
         try {
             const response = await fetch(WORKER_URL, { method: 'POST', body: formData });
             const data = await response.json();
             if (data.success) { 
-                totalPrice.textContent = `${data.cena} Kč`; 
+                basePriceFromWorker = parseFloat(data.cena);
+                updateFinalDisplay(basePriceFromWorker);
             }
         } catch (e) { 
-            totalPrice.textContent = "Chyba"; 
+            totalPriceDisplay.textContent = "Chyba"; 
         }
     }
+
+    function updateFinalDisplay(basePrice) {
+        if (basePrice === 0) {
+            totalPriceDisplay.textContent = "0 Kč";
+            return;
+        }
+
+        const selectedOption = colorSelect.options[colorSelect.selectedIndex];
+        const extra = selectedOption.getAttribute('data-extra') ? parseInt(selectedOption.getAttribute('data-extra')) : 0;
+        
+        // Připočtení příplatku k celkové ceně
+        const finalPrice = basePrice + extra;
+        totalPriceDisplay.textContent = `${finalPrice} Kč`;
+    }
+
+    // Validace při odeslání: URL nebo Soubor musí být vyplněny
+    form.addEventListener('submit', (e) => {
+        const hasFile = fileInput.files.length > 0;
+        const hasUrl = urlInput.value.trim() !== "";
+
+        if (!hasFile && !hasUrl) {
+            e.preventDefault();
+            alert("Prosím vložte odkaz na model nebo nahrajte STL soubor.");
+        }
+    });
 
     fileInput.addEventListener('change', () => {
         if (fileInput.files[0]) {
             fileNameDisplay.textContent = 'Vybráno: ' + fileInput.files[0].name;
             calculatePrice();
+        } else {
+            fileNameDisplay.textContent = "";
+            updateFinalDisplay(0);
         }
     });
 
+    // Sledování změn pro přepočet
     ['change', 'input'].forEach(evt => {
-        ['material', 'quantity', 'durability'].forEach(id => {
+        ['material', 'quantity', 'durability', 'color-select'].forEach(id => {
             const el = document.getElementById(id);
-            if (el) el.addEventListener(evt, calculatePrice);
+            if (el) el.addEventListener(evt, () => {
+                if (id === 'color-select') {
+                    updateFinalDisplay(basePriceFromWorker);
+                } else {
+                    calculatePrice();
+                }
+            });
         });
     });
 </script>
