@@ -129,6 +129,7 @@
         <div class="nav-links">
             <a href="/easy3dtisk/portfolio">Portfolio</a>
             <a href="/easy3dtisk/kontakt">Kontakt</a>
+            <a href="/easy3dtisk/kalkulacka">Kalkulačka</a>
             <a href="/easy3dtisk/poptavka" class="cta-btn">Poptat zakázku</a>
         </div>
     </nav>
@@ -299,7 +300,8 @@
 
     ['change', 'input'].forEach(evt => {
         ['material', 'quantity', 'durability'].forEach(id => {
-            document.getElementById(id).addEventListener(evt, calculatePrice);
+            const el = document.getElementById(id);
+            if (el) el.addEventListener(evt, calculatePrice);
         });
     });
 </script>
